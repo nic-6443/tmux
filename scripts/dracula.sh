@@ -157,6 +157,11 @@ main()
       script="#($current_dir/network.sh)"
     fi
 
+    if [ $plugin = "aria2" ]; then
+      IFS=' ' read -r -a colors <<< $(get_tmux_option "@dracula-aria2-colors" "cyan dark_gray")
+      script="#($current_dir/aria2_progress.sh)"
+    fi
+
     if [ $plugin = "network-bandwidth" ]; then
       IFS=' ' read -r -a colors <<< $(get_tmux_option "@dracula-network-bandwidth-colors" "cyan dark_gray")
       tmux set-option -g status-right-length 250
