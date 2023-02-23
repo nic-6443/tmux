@@ -11,37 +11,10 @@ IFS=' ' read -r -a no_repo_message <<< $(get_tmux_option "@dracula-git-no-repo-m
 # Get added, modified, updated and deleted files from git status
 getChanges()
 {
-   declare -i added=0;
-   declare -i modified=0;
-   declare -i updated=0;
-   declare -i deleted=0;
-
-for i in $(git -C $path status -s)
-
-    do
-      case $i in 
-      'A')
-        added+=1 
-      ;;
-      'M')
-        modified+=1
-      ;;
-      'U')
-        updated+=1 
-      ;;
-      'D')
-       deleted+=1
-      ;;
-
-      esac
-    done
-
+    files=$(git -P -C $path diff HEAD --shortstat);
     output=""
-    [ $added -gt 0 ] && output+="${added}A"
-    [ $modified -gt 0 ] && output+=" ${modified}M"
-    [ $updated -gt 0 ] && output+=" ${updated}U"
-    [ $deleted -gt 0 ] && output+=" ${deleted}D"
-  
+     output+="${files}"
+
     echo $output    
 }
 
@@ -112,7 +85,7 @@ getBranch()
 getMessage()
 {
     if [ $(checkForGitDir) == "true" ]; then
-        branch="$(getBranch)"
+        branch=""
         
         if [ $(checkForChanges) == "true" ]; then 
             

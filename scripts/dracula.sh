@@ -137,6 +137,16 @@ main()
       script="#($current_dir/battery.sh)"
     fi
 
+    if [ $plugin = "github-pr-status" ]; then
+      IFS=' ' read -r -a colors <<< $(get_tmux_option "@dracula-github-pr-status-colors" "cyan dark_gray")
+      script="#($current_dir/github_pr_status.sh)"
+    fi
+
+    if [ $plugin = "stock" ]; then
+      IFS=' ' read -r -a colors <<< $(get_tmux_option "@dracula-stock-colors" "pink dark_gray")
+      script="#($current_dir/stock.sh)"
+    fi
+
     if [ $plugin = "gpu-usage" ]; then
       IFS=' ' read -r -a colors <<< $(get_tmux_option "@dracula-gpu-usage-colors" "pink dark_gray")
       script="#($current_dir/gpu_usage.sh)"
