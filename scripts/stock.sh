@@ -10,13 +10,13 @@ source $current_dir/utils.sh
 
 get_stock_stats() {
     code=$(get_tmux_option "@dracula-stock-code" "sz600519")
-    output=$(curl --noproxy '*' http://qt.gtimg.cn/q\=$code -s | awk -F'=' '{print $2}' | awk -F'~' '{print $33}')
+    output=$(curl --noproxy '*' http://qt.gtimg.cn/q\=$code -s | awk -F'=' '{print $2}' | awk -F'~' '{print $4" "$33}')
     echo "$output"%
 }
 
 main() {
   echo $(get_stock_stats)
-  sleep 900
+  sleep 120
 }
 
 # run main driver
